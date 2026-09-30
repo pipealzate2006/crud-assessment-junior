@@ -20,6 +20,15 @@
     font-size: rem(14px);
   }
 
+  &__user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: espacio(1);
+    margin-top: espacio(1);
+    font-size: rem(14px);
+  }
+
   &__main {
     @include columna(espacio(3));
 
