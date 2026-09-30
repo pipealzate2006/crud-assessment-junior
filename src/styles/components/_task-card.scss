@@ -1,0 +1,74 @@
+@use "../abstracts" as *;
+
+.task-card {
+  @extend %caja;
+  @include columna(espacio(1));
+  padding: espacio(2);
+  border-left-width: 5px;
+  transition: opacity 0.2s, transform 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &__header {
+    @include fila(espacio(1));
+  }
+
+  &__title {
+    font-size: rem(16px);
+    word-break: break-word;
+  }
+
+  &__badge {
+    padding: 2px espacio(1);
+    border-radius: 20px;
+    font-size: rem(11px);
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  &__description {
+    font-size: rem(14px);
+    color: $gris;
+    word-break: break-word;
+  }
+
+  &__footer {
+    @include fila(espacio(1));
+    margin-top: auto;
+    padding-top: espacio(1);
+    border-top: 1px solid $borde;
+  }
+
+  &__date {
+    font-size: rem(12px);
+    color: $gris;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 4px;
+  }
+
+  &--low {
+    @include prioridad($prioridad-baja);
+  }
+
+  &--medium {
+    @include prioridad($prioridad-media);
+  }
+
+  &--high {
+    @include prioridad($prioridad-alta);
+  }
+
+  &--done {
+    opacity: 0.6;
+
+    .task-card__title {
+      text-decoration: line-through;
+    }
+  }
+}

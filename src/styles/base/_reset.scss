@@ -1,0 +1,22 @@
+@use "../abstracts" as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $fuente;
+  font-size: $tamano-base;
+  color: $texto;
+  background-color: $fondo;
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}

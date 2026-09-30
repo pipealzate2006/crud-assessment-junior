@@ -1,0 +1,27 @@
+$primario: #4f46e5;
+$peligro: #dc2626;
+$exito: #16a34a;
+$texto: #1f2937;
+$gris: #6b7280;
+$fondo: #f3f4f6;
+$blanco: #ffffff;
+$borde: #e5e7eb;
+
+$prioridad-baja: #0ea5e9;
+$prioridad-media: #f59e0b;
+$prioridad-alta: #dc2626;
+
+$botones: (
+  primary: $primario,
+  danger: $peligro,
+  success: $exito,
+  ghost: $gris
+);
+
+$fuente: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+$tamano-base: 16px;
+
+$espacio: 8px;
+$radio: 10px;
+$tablet: 768px;
+$movil: 480px;

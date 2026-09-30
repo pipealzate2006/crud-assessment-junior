@@ -1,0 +1,22 @@
+@use "../abstracts" as *;
+
+.button {
+  display: inline-block;
+  padding: espacio(1) espacio(2);
+  border: 1px solid transparent;
+  border-radius: $radio;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  @each $nombre, $color in $botones {
+    &--#{$nombre} {
+      @include boton($color);
+    }
+  }
+
+  &--small {
+    padding: 4px 10px;
+    font-size: rem(13px);
+  }
+}

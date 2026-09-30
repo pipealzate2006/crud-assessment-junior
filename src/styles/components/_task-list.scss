@@ -1,0 +1,40 @@
+@use "../abstracts" as *;
+
+.task-list {
+  @include columna(espacio(2));
+
+  &__toolbar {
+    @include fila(espacio(1));
+    flex-wrap: wrap;
+  }
+
+  &__filter {
+    padding: 6px 12px;
+    border: 1px solid $borde;
+    border-radius: $radio;
+    background-color: $blanco;
+  }
+
+  &__count {
+    font-size: rem(14px);
+    color: $gris;
+  }
+
+  &__items {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+
+    @include movil-grande {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+  }
+
+  &__empty {
+    @extend %caja;
+    padding: espacio(4);
+    text-align: center;
+    color: $gris;
+    border-style: dashed;
+  }
+}
