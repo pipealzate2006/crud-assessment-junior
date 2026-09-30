@@ -1,4 +1,5 @@
 import type { Task } from '../types'
+import { useTaskStore } from '../store/useTaskStore'
 
 const priorityNames = {
   low: 'Baja',
@@ -8,12 +9,19 @@ const priorityNames = {
 
 interface Props {
   task: Task
-  onToggle: (task: Task) => void
-  onEdit: (task: Task) => void
-  onDelete: (task: Task) => void
 }
 
-function TaskCard({ task, onToggle, onEdit, onDelete }: Props) {
+function TaskCard({ task }: Props) {
+  const toggleTask = useTaskStore((state) => state.toggleTask)
+  const setEditing = useTaskStore((state) => state.setEditing)
+  const deleteTask = useTaskStore((state) => state.deleteTask)
+
+  function handleDelete() {
+    if (confirm(`¿Eliminar "${task.title}"?`)) {
+      deleteTask(task.id)
+    }
+  }
+
   let className = `task-card task-card--${task.priority}`
   if (task.done) className += ' task-card--done'
 
@@ -31,13 +39,13 @@ function TaskCard({ task, onToggle, onEdit, onDelete }: Props) {
           {new Date(task.createdAt).toLocaleDateString('es-CO')}
         </span>
         <div className="task-card__actions">
-          <button className="button button--success button--small" onClick={() => onToggle(task)}>
+          <button className="button button--success button--small" onClick={() => toggleTask(task.id)}>
             {task.done ? 'Reabrir' : 'Completar'}
           </button>
-          <button className="button button--primary button--small" onClick={() => onEdit(task)}>
+          <button className="button button--primary button--small" onClick={() => setEditing(task)}>
             Editar
           </button>
-          <button className="button button--danger button--small" onClick={() => onDelete(task)}>
+          <button className="button button--danger button--small" onClick={handleDelete}>
             Eliminar
           </button>
         </div>

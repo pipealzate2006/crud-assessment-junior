@@ -1,19 +1,16 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { login } from '../auth'
+import { useAuthStore } from '../store/useAuthStore'
 
 function LoginPage() {
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const navigate = useNavigate()
+  const login = useAuthStore((state) => state.login)
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
 
-    if (login(user, password)) {
-      navigate('/')
-    } else {
+    if (!login(user, password)) {
       setError('Usuario o contraseña incorrectos')
     }
   }

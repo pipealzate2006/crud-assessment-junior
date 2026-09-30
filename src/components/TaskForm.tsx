@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-import type { Priority, Task, TaskData } from '../types'
+import type { Priority } from '../types'
+import { useTaskStore } from '../store/useTaskStore'
 
-interface Props {
-  editing: Task | null
-  onSubmit: (data: TaskData) => void
-  onCancel: () => void
-}
+function TaskForm() {
+  const editing = useTaskStore((state) => state.editing)
+  const addTask = useTaskStore((state) => state.addTask)
+  const updateTask = useTaskStore((state) => state.updateTask)
+  const setEditing = useTaskStore((state) => state.setEditing)
 
-function TaskForm({ editing, onSubmit, onCancel }: Props) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [priority, setPriority] = useState<Priority>('medium')
@@ -38,11 +38,17 @@ function TaskForm({ editing, onSubmit, onCancel }: Props) {
       return
     }
 
-    onSubmit({
+    const data = {
       title: title.trim(),
       description: description.trim(),
       priority,
-    })
+    }
+
+    if (editing) {
+      updateTask(editing.id, data)
+    } else {
+      addTask(data)
+    }
     clearForm()
   }
 
@@ -97,7 +103,7 @@ function TaskForm({ editing, onSubmit, onCancel }: Props) {
 
       <div className="task-form__actions">
         {editing && (
-          <button type="button" className="button button--ghost" onClick={onCancel}>
+          <button type="button" className="button button--ghost" onClick={() => setEditing(null)}>
             Cancelar
           </button>
         )}

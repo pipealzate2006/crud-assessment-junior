@@ -1,44 +1,43 @@
-import type { Filter, Task } from '../types'
+import type { Filter } from '../types'
+import { useTaskStore } from '../store/useTaskStore'
 import TaskCard from './TaskCard'
 
-interface Props {
-  tasks: Task[]
-  filter: Filter
-  counter: string
-  onFilterChange: (filter: Filter) => void
-  onToggle: (task: Task) => void
-  onEdit: (task: Task) => void
-  onDelete: (task: Task) => void
-}
+function TaskList() {
+  const tasks = useTaskStore((state) => state.tasks)
+  const filter = useTaskStore((state) => state.filter)
+  const setFilter = useTaskStore((state) => state.setFilter)
 
-function TaskList({ tasks, filter, counter, onFilterChange, onToggle, onEdit, onDelete }: Props) {
+  const visibleTasks = tasks.filter((t) => {
+    if (filter === 'done') return t.done
+    if (filter === 'pending') return !t.done
+    return true
+  })
+
+  const doneCount = tasks.filter((t) => t.done).length
+
   return (
     <section className="task-list">
       <div className="task-list__toolbar">
         <select
           className="task-list__filter"
           value={filter}
-          onChange={(e) => onFilterChange(e.target.value as Filter)}
+          onChange={(e) => setFilter(e.target.value as Filter)}
         >
           <option value="all">Todas</option>
           <option value="pending">Pendientes</option>
           <option value="done">Completadas</option>
         </select>
-        <span className="task-list__count">{counter}</span>
+        <span className="task-list__count">
+          {doneCount}/{tasks.length} completadas
+        </span>
       </div>
 
-      {tasks.length === 0 ? (
+      {visibleTasks.length === 0 ? (
         <p className="task-list__empty">No hay tareas para mostrar.</p>
       ) : (
         <ul className="task-list__items">
-          {tasks.map((task) => (
-            <TaskCard
-              key={task.id}
-              task={task}
-              onToggle={onToggle}
-              onEdit={onEdit}
-              onDelete={onDelete}
-            />
+          {visibleTasks.map((task) => (
+            <TaskCard key={task.id} task={task} />
           ))}
         </ul>
       )}
