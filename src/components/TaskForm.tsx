@@ -7,6 +7,7 @@ function TaskForm() {
   const addTask = useTaskStore((state) => state.addTask)
   const updateTask = useTaskStore((state) => state.updateTask)
   const setEditing = useTaskStore((state) => state.setEditing)
+  const saving = useTaskStore((state) => state.saving)
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -30,7 +31,7 @@ function TaskForm() {
     setError(false)
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
 
     if (title.trim() === '') {
@@ -45,9 +46,9 @@ function TaskForm() {
     }
 
     if (editing) {
-      updateTask(editing.id, data)
+      await updateTask(editing.id, data)
     } else {
-      addTask(data)
+      await addTask(data)
     }
     clearForm()
   }
@@ -107,8 +108,8 @@ function TaskForm() {
             Cancelar
           </button>
         )}
-        <button type="submit" className="button button--primary">
-          {editing ? 'Guardar' : 'Agregar'}
+        <button type="submit" className="button button--primary" disabled={saving}>
+          {saving ? 'Guardando...' : editing ? 'Guardar' : 'Agregar'}
         </button>
       </div>
     </form>

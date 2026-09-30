@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import type { Filter } from '../types'
 import { useTaskStore } from '../store/useTaskStore'
 import TaskCard from './TaskCard'
@@ -6,6 +7,13 @@ function TaskList() {
   const tasks = useTaskStore((state) => state.tasks)
   const filter = useTaskStore((state) => state.filter)
   const setFilter = useTaskStore((state) => state.setFilter)
+  const loading = useTaskStore((state) => state.loading)
+  const error = useTaskStore((state) => state.error)
+  const loadTasks = useTaskStore((state) => state.loadTasks)
+
+  useEffect(() => {
+    loadTasks()
+  }, [loadTasks])
 
   const visibleTasks = tasks.filter((t) => {
     if (filter === 'done') return t.done
@@ -32,7 +40,11 @@ function TaskList() {
         </span>
       </div>
 
-      {visibleTasks.length === 0 ? (
+      {error && <p className="task-list__error">{error}</p>}
+
+      {loading ? (
+        <p className="task-list__empty">Cargando tareas...</p>
+      ) : visibleTasks.length === 0 ? (
         <p className="task-list__empty">No hay tareas para mostrar.</p>
       ) : (
         <ul className="task-list__items">

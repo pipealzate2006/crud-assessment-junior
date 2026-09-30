@@ -37,4 +37,12 @@
     color: $gris;
     border-style: dashed;
   }
+
+  &__error {
+    padding: espacio(1) espacio(2);
+    border-radius: $radio;
+    color: $peligro;
+    background-color: rgba($peligro, 0.1);
+    font-size: rem(14px);
+  }
 }

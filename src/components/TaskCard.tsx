@@ -15,10 +15,11 @@ function TaskCard({ task }: Props) {
   const toggleTask = useTaskStore((state) => state.toggleTask)
   const setEditing = useTaskStore((state) => state.setEditing)
   const deleteTask = useTaskStore((state) => state.deleteTask)
+  const saving = useTaskStore((state) => state.saving)
 
-  function handleDelete() {
+  async function handleDelete() {
     if (confirm(`¿Eliminar "${task.title}"?`)) {
-      deleteTask(task.id)
+      await deleteTask(task.id)
     }
   }
 
@@ -39,13 +40,13 @@ function TaskCard({ task }: Props) {
           {new Date(task.createdAt).toLocaleDateString('es-CO')}
         </span>
         <div className="task-card__actions">
-          <button className="button button--success button--small" onClick={() => toggleTask(task.id)}>
+          <button className="button button--success button--small" onClick={() => toggleTask(task)} disabled={saving}>
             {task.done ? 'Reabrir' : 'Completar'}
           </button>
-          <button className="button button--primary button--small" onClick={() => setEditing(task)}>
+          <button className="button button--primary button--small" onClick={() => setEditing(task)} disabled={saving}>
             Editar
           </button>
-          <button className="button button--danger button--small" onClick={handleDelete}>
+          <button className="button button--danger button--small" onClick={handleDelete} disabled={saving}>
             Eliminar
           </button>
         </div>
