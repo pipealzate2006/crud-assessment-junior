@@ -1,0 +1,18 @@
+@use "../abstracts" as *;
+
+.alert {
+  padding: espacio(1) espacio(2);
+  border-radius: $radio;
+  font-size: rem(14px);
+
+  &--error {
+    color: $peligro;
+    background-color: rgba($peligro, 0.1);
+  }
+
+  &--info {
+    color: $primario;
+    background-color: rgba($primario, 0.1);
+    text-align: center;
+  }
+}

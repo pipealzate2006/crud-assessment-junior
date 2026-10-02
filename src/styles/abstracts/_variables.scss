@@ -11,6 +11,12 @@ $prioridad-baja: #0ea5e9;
 $prioridad-media: #f59e0b;
 $prioridad-alta: #dc2626;
 
+$prioridades: (
+  low: $prioridad-baja,
+  medium: $prioridad-media,
+  high: $prioridad-alta
+);
+
 $botones: (
   primary: $primario,
   danger: $peligro,
@@ -23,5 +29,10 @@ $tamano-base: 16px;
 
 $espacio: 8px;
 $radio: 10px;
-$tablet: 768px;
-$movil: 480px;
+$toque-minimo: 44px;
+
+$breakpoints: (
+  movil-grande: 480px,
+  tablet: 768px,
+  escritorio: 1024px
+);

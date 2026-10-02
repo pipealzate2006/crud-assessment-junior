@@ -1,14 +1,14 @@
-@use "sass:color";
+@use "sass:map";
 @use "variables" as *;
 
-@mixin tablet {
-  @media (min-width: $tablet) {
+@mixin desde($breakpoint) {
+  @media (min-width: map.get($breakpoints, $breakpoint)) {
     @content;
   }
 }
 
-@mixin movil-grande {
-  @media (min-width: $movil) {
+@mixin con-hover {
+  @media (hover: hover) {
     @content;
   }
 }
@@ -31,22 +31,15 @@
   border-color: $color;
   color: white;
 
-  &:hover {
-    opacity: 0.85;
+  @include con-hover {
+    &:hover {
+      opacity: 0.85;
+    }
   }
 
   &:focus-visible {
     outline: 3px solid rgba($color, 0.35);
     outline-offset: 2px;
-  }
-}
-
-@mixin prioridad($color) {
-  border-left-color: $color;
-
-  .task-card__badge {
-    color: color.adjust($color, $lightness: -15%);
-    background-color: rgba($color, 0.15);
   }
 }
 

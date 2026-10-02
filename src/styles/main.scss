@@ -1,7 +1,19 @@
 @use "base/reset";
-@use "layout/app";
-@use "components/button";
-@use "components/task-form";
-@use "components/task-list";
-@use "components/task-card";
-@use "components/login";
+
+@use "atoms/button";
+@use "atoms/input";
+@use "atoms/badge";
+@use "atoms/alert";
+@use "atoms/empty-state";
+
+@use "molecules/form-field";
+@use "molecules/task-filter";
+@use "molecules/user-menu";
+
+@use "organisms/task-card";
+@use "organisms/task-form";
+@use "organisms/task-list";
+@use "organisms/login-form";
+
+@use "templates/auth-layout";
+@use "templates/dashboard";

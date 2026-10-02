@@ -1,0 +1,18 @@
+@use "sass:color";
+@use "../abstracts" as *;
+
+.badge {
+  padding: 2px espacio(1);
+  border-radius: 20px;
+  font-size: rem(11px);
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  @each $nombre, $color in $prioridades {
+    &--#{$nombre} {
+      color: color.adjust($color, $lightness: -15%);
+      background-color: rgba($color, 0.15);
+    }
+  }
+}

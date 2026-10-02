@@ -1,0 +1,18 @@
+@use "../abstracts" as *;
+
+.task-filter {
+  @include columna(espacio(1));
+
+  &__count {
+    font-size: rem(14px);
+    color: $gris;
+  }
+
+  @include desde(movil-grande) {
+    @include fila(espacio(1));
+
+    &__select {
+      width: auto;
+    }
+  }
+}

@@ -7,26 +7,20 @@
   border-left-width: 5px;
   transition: opacity 0.2s, transform 0.2s;
 
-  &:hover {
-    transform: translateY(-2px);
+  @include con-hover {
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
 
   &__header {
     @include fila(espacio(1));
+    align-items: flex-start;
   }
 
   &__title {
     font-size: rem(16px);
     word-break: break-word;
-  }
-
-  &__badge {
-    padding: 2px espacio(1);
-    border-radius: 20px;
-    font-size: rem(11px);
-    font-weight: 700;
-    text-transform: uppercase;
-    white-space: nowrap;
   }
 
   &__description {
@@ -36,10 +30,15 @@
   }
 
   &__footer {
-    @include fila(espacio(1));
+    @include columna(espacio(1));
     margin-top: auto;
     padding-top: espacio(1);
     border-top: 1px solid $borde;
+
+    @include desde(tablet) {
+      @include fila(espacio(1));
+      flex-wrap: wrap;
+    }
   }
 
   &__date {
@@ -49,19 +48,25 @@
 
   &__actions {
     display: flex;
-    gap: 4px;
+    gap: espacio(1);
+
+    .button {
+      flex: 1;
+    }
+
+    @include desde(tablet) {
+      gap: 4px;
+
+      .button {
+        flex: none;
+      }
+    }
   }
 
-  &--low {
-    @include prioridad($prioridad-baja);
-  }
-
-  &--medium {
-    @include prioridad($prioridad-media);
-  }
-
-  &--high {
-    @include prioridad($prioridad-alta);
+  @each $nombre, $color in $prioridades {
+    &--#{$nombre} {
+      border-left-color: $color;
+    }
   }
 
   &--done {

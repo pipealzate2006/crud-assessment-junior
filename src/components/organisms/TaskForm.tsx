@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
-import type { Priority } from '../types'
-import { useTaskStore } from '../store/useTaskStore'
+import { priorityNames } from '../../constants'
+import { useTaskStore } from '../../store/useTaskStore'
+import type { Priority } from '../../types'
+import { cx } from '../../utils/cx'
+import { Button, Input, Select, TextArea } from '../atoms'
+import { FormField } from '../molecules'
 
 function TaskForm() {
   const editing = useTaskStore((state) => state.editing)
@@ -54,63 +58,51 @@ function TaskForm() {
   }
 
   return (
-    <form
-      className={editing ? 'task-form task-form--editing' : 'task-form'}
-      onSubmit={handleSubmit}
-      noValidate
-    >
+    <form className={cx('task-form', editing && 'task-form--editing')} onSubmit={handleSubmit} noValidate>
       <h2 className="task-form__title">{editing ? 'Editar tarea' : 'Nueva tarea'}</h2>
 
-      <div className="task-form__field">
-        <label className="task-form__label" htmlFor="title">Título</label>
-        <input
+      <FormField id="title" label="Título">
+        <Input
           id="title"
           type="text"
-          className={error ? 'task-form__input task-form__input--error' : 'task-form__input'}
           placeholder="Ej: Estudiar Sass"
+          hasError={error}
           value={title}
           onChange={(e) => {
             setTitle(e.target.value)
             setError(false)
           }}
         />
-      </div>
+      </FormField>
 
-      <div className="task-form__field">
-        <label className="task-form__label" htmlFor="description">Descripción</label>
-        <textarea
+      <FormField id="description" label="Descripción">
+        <TextArea
           id="description"
-          className="task-form__input"
           rows={3}
           placeholder="Detalles opcionales"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-      </div>
+      </FormField>
 
-      <div className="task-form__field">
-        <label className="task-form__label" htmlFor="priority">Prioridad</label>
-        <select
+      <FormField id="priority" label="Prioridad">
+        <Select
           id="priority"
-          className="task-form__input"
+          options={priorityNames}
           value={priority}
           onChange={(e) => setPriority(e.target.value as Priority)}
-        >
-          <option value="low">Baja</option>
-          <option value="medium">Media</option>
-          <option value="high">Alta</option>
-        </select>
-      </div>
+        />
+      </FormField>
 
       <div className="task-form__actions">
         {editing && (
-          <button type="button" className="button button--ghost" onClick={() => setEditing(null)}>
+          <Button variant="ghost" onClick={() => setEditing(null)}>
             Cancelar
-          </button>
+          </Button>
         )}
-        <button type="submit" className="button button--primary" disabled={saving}>
+        <Button type="submit" disabled={saving}>
           {saving ? 'Guardando...' : editing ? 'Guardar' : 'Agregar'}
-        </button>
+        </Button>
       </div>
     </form>
   )

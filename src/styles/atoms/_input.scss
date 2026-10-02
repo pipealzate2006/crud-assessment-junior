@@ -1,0 +1,30 @@
+@use "../abstracts" as *;
+
+.input {
+  width: 100%;
+  min-height: $toque-minimo;
+  padding: espacio(1) 12px;
+  border: 1px solid $borde;
+  border-radius: $radio;
+  background-color: $blanco;
+  font-size: rem(16px);
+
+  &:focus {
+    outline: none;
+    border-color: $primario;
+    box-shadow: 0 0 0 3px rgba($primario, 0.2);
+  }
+
+  &--error {
+    border-color: $peligro;
+  }
+
+  &--multiline {
+    resize: vertical;
+  }
+
+  @include desde(tablet) {
+    min-height: 40px;
+    font-size: rem(15px);
+  }
+}

@@ -1,11 +1,8 @@
-import type { Task } from '../types'
-import { useTaskStore } from '../store/useTaskStore'
-
-const priorityNames = {
-  low: 'Baja',
-  medium: 'Media',
-  high: 'Alta',
-}
+import { priorityNames } from '../../constants'
+import { useTaskStore } from '../../store/useTaskStore'
+import type { Task } from '../../types'
+import { cx } from '../../utils/cx'
+import { Badge, Button } from '../atoms'
 
 interface Props {
   task: Task
@@ -23,14 +20,11 @@ function TaskCard({ task }: Props) {
     }
   }
 
-  let className = `task-card task-card--${task.priority}`
-  if (task.done) className += ' task-card--done'
-
   return (
-    <li className={className}>
+    <li className={cx('task-card', `task-card--${task.priority}`, task.done && 'task-card--done')}>
       <div className="task-card__header">
         <h3 className="task-card__title">{task.title}</h3>
-        <span className="task-card__badge">{priorityNames[task.priority]}</span>
+        <Badge tone={task.priority}>{priorityNames[task.priority]}</Badge>
       </div>
 
       <p className="task-card__description">{task.description || 'Sin descripción'}</p>
@@ -40,15 +34,15 @@ function TaskCard({ task }: Props) {
           {new Date(task.createdAt).toLocaleDateString('es-CO')}
         </span>
         <div className="task-card__actions">
-          <button className="button button--success button--small" onClick={() => toggleTask(task)} disabled={saving}>
+          <Button variant="success" small onClick={() => toggleTask(task)} disabled={saving}>
             {task.done ? 'Reabrir' : 'Completar'}
-          </button>
-          <button className="button button--primary button--small" onClick={() => setEditing(task)} disabled={saving}>
+          </Button>
+          <Button small onClick={() => setEditing(task)} disabled={saving}>
             Editar
-          </button>
-          <button className="button button--danger button--small" onClick={handleDelete} disabled={saving}>
+          </Button>
+          <Button variant="danger" small onClick={handleDelete} disabled={saving}>
             Eliminar
-          </button>
+          </Button>
         </div>
       </div>
     </li>

@@ -1,0 +1,13 @@
+@use "../abstracts" as *;
+
+.user-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: espacio(1);
+  font-size: rem(14px);
+
+  @include desde(tablet) {
+    justify-content: flex-end;
+  }
+}

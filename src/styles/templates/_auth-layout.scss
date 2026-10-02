@@ -1,0 +1,21 @@
+@use "../abstracts" as *;
+
+.auth-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: espacio(2);
+
+  &__card {
+    @extend %caja;
+    width: 100%;
+    max-width: 380px;
+    padding: espacio(3) espacio(2);
+
+    @include desde(tablet) {
+      padding: espacio(4) espacio(3);
+    }
+  }
+}

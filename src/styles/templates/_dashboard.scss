@@ -1,0 +1,65 @@
+@use "../abstracts" as *;
+
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: espacio(2);
+
+  &__header {
+    @include columna(espacio(1));
+    align-items: center;
+    margin-bottom: espacio(2);
+    text-align: center;
+  }
+
+  &__title {
+    font-size: rem(22px);
+    color: $primario;
+  }
+
+  &__subtitle {
+    color: $gris;
+    font-size: rem(13px);
+  }
+
+  &__main {
+    @include columna(espacio(2));
+  }
+
+  @include desde(tablet) {
+    padding: espacio(3);
+
+    &__header {
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: espacio(3);
+      text-align: left;
+    }
+
+    &__title {
+      font-size: rem(28px);
+    }
+
+    &__subtitle {
+      font-size: rem(14px);
+    }
+
+    &__main {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      align-items: start;
+      gap: espacio(3);
+    }
+
+    &__aside {
+      position: sticky;
+      top: espacio(3);
+    }
+  }
+
+  @include desde(escritorio) {
+    &__main {
+      grid-template-columns: 340px 1fr;
+    }
+  }
+}

@@ -1,7 +1,10 @@
 @use "../abstracts" as *;
 
 .button {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: $toque-minimo;
   padding: espacio(1) espacio(2);
   border: 1px solid transparent;
   border-radius: $radio;
@@ -21,7 +24,13 @@
   }
 
   &--small {
-    padding: 4px 10px;
-    font-size: rem(13px);
+    padding: espacio(1) 12px;
+    font-size: rem(14px);
+
+    @include desde(tablet) {
+      min-height: 32px;
+      padding: 4px 10px;
+      font-size: rem(13px);
+    }
   }
 }

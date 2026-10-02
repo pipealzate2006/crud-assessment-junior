@@ -1,0 +1,13 @@
+@use "../abstracts" as *;
+
+.empty-state {
+  @extend %caja;
+  padding: espacio(3) espacio(2);
+  border-style: dashed;
+  color: $gris;
+  text-align: center;
+
+  @include desde(tablet) {
+    padding: espacio(4);
+  }
+}

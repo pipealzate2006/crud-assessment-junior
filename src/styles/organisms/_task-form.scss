@@ -1,0 +1,40 @@
+@use "../abstracts" as *;
+
+.task-form {
+  @extend %caja;
+  @include columna(espacio(2));
+  padding: espacio(2);
+
+  &__title {
+    font-size: rem(18px);
+  }
+
+  &__actions {
+    display: flex;
+    gap: espacio(1);
+
+    .button {
+      flex: 1;
+    }
+  }
+
+  &--editing {
+    border-color: $primario;
+
+    .task-form__title {
+      color: $primario;
+    }
+  }
+
+  @include desde(tablet) {
+    padding: espacio(3);
+
+    &__actions {
+      justify-content: flex-end;
+
+      .button {
+        flex: none;
+      }
+    }
+  }
+}

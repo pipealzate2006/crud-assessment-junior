@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
-import type { Filter } from '../types'
-import { useTaskStore } from '../store/useTaskStore'
+import { useTaskStore } from '../../store/useTaskStore'
+import { Alert, EmptyState } from '../atoms'
+import { TaskFilter } from '../molecules'
 import TaskCard from './TaskCard'
 
 function TaskList() {
@@ -25,27 +26,14 @@ function TaskList() {
 
   return (
     <section className="task-list">
-      <div className="task-list__toolbar">
-        <select
-          className="task-list__filter"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value as Filter)}
-        >
-          <option value="all">Todas</option>
-          <option value="pending">Pendientes</option>
-          <option value="done">Completadas</option>
-        </select>
-        <span className="task-list__count">
-          {doneCount}/{tasks.length} completadas
-        </span>
-      </div>
+      <TaskFilter value={filter} onChange={setFilter} done={doneCount} total={tasks.length} />
 
-      {error && <p className="task-list__error">{error}</p>}
+      {error && <Alert>{error}</Alert>}
 
       {loading ? (
-        <p className="task-list__empty">Cargando tareas...</p>
+        <EmptyState>Cargando tareas...</EmptyState>
       ) : visibleTasks.length === 0 ? (
-        <p className="task-list__empty">No hay tareas para mostrar.</p>
+        <EmptyState>No hay tareas para mostrar.</EmptyState>
       ) : (
         <ul className="task-list__items">
           {visibleTasks.map((task) => (

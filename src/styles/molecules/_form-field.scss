@@ -1,0 +1,11 @@
+@use "../abstracts" as *;
+
+.form-field {
+  @include columna(4px);
+
+  &__label {
+    font-size: rem(13px);
+    font-weight: 600;
+    color: $gris;
+  }
+}

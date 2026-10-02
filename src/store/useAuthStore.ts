@@ -1,27 +1,35 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
+import * as authApi from '../api/authApi'
 
 interface AuthState {
   user: string | null
-  login: (user: string, password: string) => boolean
-  logout: () => void
+  token: string | null
+  expiresAt: number | null
+  notice: string | null
+  login: (user: string, password: string) => Promise<void>
+  logout: (notice?: string) => void
 }
 
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
+      token: null,
+      expiresAt: null,
+      notice: null,
 
-      login: (user, password) => {
-        if (user === 'admin' && password === '1234') {
-          set({ user })
-          return true
-        }
-        return false
+      login: async (user, password) => {
+        const session = await authApi.login(user, password)
+        set({ ...session, notice: null })
       },
 
-      logout: () => set({ user: null }),
+      logout: (notice) => set({ user: null, token: null, expiresAt: null, notice: notice ?? null }),
     }),
-    { name: 'sesion' },
+    {
+      name: 'sesion',
+      storage: createJSONStorage(() => sessionStorage),
+      partialize: ({ user, token, expiresAt }) => ({ user, token, expiresAt }),
+    },
   ),
 )

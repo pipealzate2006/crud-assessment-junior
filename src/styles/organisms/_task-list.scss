@@ -1,0 +1,15 @@
+@use "../abstracts" as *;
+
+.task-list {
+  @include columna(espacio(2));
+
+  &__items {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+
+    @include desde(movil-grande) {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+  }
+}
